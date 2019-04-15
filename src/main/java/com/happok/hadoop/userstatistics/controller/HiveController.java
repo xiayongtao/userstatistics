@@ -125,27 +125,21 @@ public class HiveController {
         sql.append(" where dt='");
         sql.append(time);
         sql.append("'");
+        sql.append(" and remote_addr != '127.0.0.1' order by time_local desc");
 
         List<NginxInfo> rows = hiveJdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(NginxInfo.class));
-       /* for (NginxInfo nginxInfo : rows) {
-            System.out.println(String.format("%s\t%s\t%s\t%s", nginxInfo.getRemote_addr(),
-                    nginxInfo.getTime_local(),
-                    nginxInfo.getRequest_method(),
-                    nginxInfo.getRequest_uri()));
-        }*/
 
         return new ResultBody(rows);
-        //  return sql.toString();
     }
 
 
     @GetMapping("/traffic")
     public Object getTraffic(@RequestParam String time) {
 
-        StringBuffer sql = new StringBuffer("select t.dt dt,t.hour hour," +
+        StringBuffer sql = new StringBuffer("select t.dt day,t.hour hour," +
                 "count(t.request_uri) pv,count(distinct t.remote_addr) uv from ");
-        sql.append(" (select remote_addr, request_uri,substring(time_local,0,2) dt," +
-                "substring(time_local,13,2) hour from ");
+        sql.append(" (select remote_addr, request_uri,substring(time_local,9,2) dt," +
+                "substring(time_local,12,2) hour from ");
         sql.append(TABALE_NAME);
         sql.append(" where dt='");
         sql.append(time);

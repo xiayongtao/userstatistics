@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Data
 public class TrafficEntity {
-    private String dt;
+    private String day;
     private Integer hour;
     private Integer pv;
     private Integer uv;
