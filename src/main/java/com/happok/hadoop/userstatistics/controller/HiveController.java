@@ -143,7 +143,7 @@ public class HiveController {
         sql.append(TABALE_NAME);
         sql.append(" where dt='");
         sql.append(time);
-        sql.append("') t ");
+        sql.append("' and remote_addr != '127.0.0.1' ) t ");
         sql.append(" group by t.dt,t.hour");
 
         List<TrafficEntity> rows = hiveJdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(TrafficEntity.class));
