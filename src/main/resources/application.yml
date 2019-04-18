@@ -1,3 +1,16 @@
+spring:
+  kafka:
+    bootstrap-servers: 192.168.1.136:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: test
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 hive:
   url: jdbc:hive2://192.168.1.136:10000/logs
   driver-class-name: org.apache.hive.jdbc.HiveDriver
